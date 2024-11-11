@@ -8,7 +8,6 @@
 import Distributed
 import Foundation
 import NIO
-import NIOAsyncWebSockets
 import NIOHTTP1
 import NIOWebSocket
 

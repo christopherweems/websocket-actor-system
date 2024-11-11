@@ -5,8 +5,8 @@
 //  Created by Stuart A. Malone on 11/28/23.
 //
 
-import NIOAsyncWebSockets
 import NIOHTTP1
+import NIOWebSocket
 
 #if canImport(Network)
     import NIOTransportServices
@@ -75,8 +75,7 @@ public final actor ClientManager: Manager {
         let bootstrap = PlatformBootstrap(group: ClientManager.group)
         let upgradeResult = try await bootstrap.connect(host: host, port: port) { channel in
             channel.eventLoop.makeCompletedFuture {
-                let upgrader = NIOAsyncWebSockets
-                    .NIOTypedWebSocketClientUpgrader<UpgradeResult> { channel, responseHead in
+                let upgrader = NIOTypedWebSocketClientUpgrader<UpgradeResult> { channel, responseHead in
                         self.system.logger.trace("upgrading client channel to server on \(TaskPath.current)")
                         self.system.logger.trace("responseHead = \(responseHead)")
                         return channel.eventLoop.makeCompletedFuture {

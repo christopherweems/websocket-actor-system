@@ -6,14 +6,14 @@
 //
 
 @testable import WebSocketActors
-import XCTest
+import Testing
 
-final class ActorIdentityTests: XCTestCase {
-    func testActorIdentitySyntax() throws {
-        XCTAssertEqual(ActorIdentity(id: "foo"), ActorIdentity(id: "foo"))
+struct ActorIdentityTests {
+    @Test func testActorIdentitySyntax() throws {
+        #expect(ActorIdentity(id: "foo") == ActorIdentity(id: "foo"))
 
-        XCTAssertNotEqual(ActorIdentity.random(), ActorIdentity.random())
+        #expect(ActorIdentity.random() != ActorIdentity.random())
 
-        XCTAssert(ActorIdentity.random(for: Person.self).hasType(for: Person.self))
+        #expect(ActorIdentity.random(for: Person.self).hasType(for: Person.self))
     }
 }

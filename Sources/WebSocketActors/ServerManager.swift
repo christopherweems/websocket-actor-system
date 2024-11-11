@@ -8,7 +8,6 @@
 import Distributed
 import Foundation
 import NIO
-import NIOAsyncWebSockets
 import NIOHTTP1
 import NIOWebSocket
 
@@ -115,8 +114,7 @@ public final actor ServerManager: Manager {
                   port: port)
         { channel in
             channel.eventLoop.makeCompletedFuture {
-                let upgrader = NIOAsyncWebSockets
-                    .NIOTypedWebSocketServerUpgrader<ServerUpgradeResult>(
+                let upgrader = NIOTypedWebSocketServerUpgrader<ServerUpgradeResult>(
                         shouldUpgrade: { channel, _ in
                             // Any headers we set here will be passed back to the client
                             // in the response.
